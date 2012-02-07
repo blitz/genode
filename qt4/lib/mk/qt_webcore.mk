@@ -1587,7 +1587,7 @@ COMPILER_MOC_HEADER_MAKE_ALL_FILES = \
 									moc_qwebpluginfactory.cpp \
 									moc_qwebinspector.cpp
 
-$(subst moc_,,$(COMPILER_MOC_HEADER_MAKE_ALL_FILES:.cpp=.o)) : $(COMPILER_MOC_HEADER_MAKE_ALL_FILES)
+$(SRC_CC:.cpp=.o): $(COMPILER_MOC_HEADER_MAKE_ALL_FILES)
 
 # source files generated from existing source files ("%.moc: %.cpp" rule in spec-qt4.mk)
 # extracted from "compiler_moc_source_make_all" rule
@@ -1596,7 +1596,7 @@ COMPILER_MOC_SOURCE_MAKE_ALL_FILES = \
 									InspectorClientQt.moc \
 									GraphicsLayerQt.moc
 
-$(COMPILER_MOC_SOURCE_MAKE_ALL_FILES:.moc=.o) : $(COMPILER_MOC_SOURCE_MAKE_ALL_FILES)
+$(SRC_CC:.cpp=.o): $(COMPILER_MOC_SOURCE_MAKE_ALL_FILES)
 
 INC_DIR += $(REP_DIR)/src/lib/qt4/mkspecs/qws/genode-x86-g++ \
            $(REP_DIR)/include/qt4 \

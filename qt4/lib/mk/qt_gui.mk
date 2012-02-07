@@ -683,7 +683,7 @@ COMPILER_MOC_HEADER_MAKE_ALL_FILES = \
                                      moc_qgraphicseffect.cpp \
                                      moc_qgraphicseffect_p.cpp
 
-$(subst moc_,,$(COMPILER_MOC_HEADER_MAKE_ALL_FILES:.cpp=.o)) : $(COMPILER_MOC_HEADER_MAKE_ALL_FILES)
+$(SRC_CC:.cpp=.o): $(COMPILER_MOC_HEADER_MAKE_ALL_FILES)
 
 # source files generated from source files ("%.moc: %.cpp" rule in spec-qt4.mk)
 # extracted from "compiler_moc_source_make_all" target
@@ -709,7 +709,7 @@ COMPILER_MOC_SOURCE_MAKE_ALL_FILES = \
                                      qdesktopservices.moc \
                                      qundoview.moc
 
-$(COMPILER_MOC_SOURCE_MAKE_ALL_FILES:.moc=.o) : $(COMPILER_MOC_SOURCE_MAKE_ALL_FILES)
+$(SRC_CC:.cpp=.o): $(COMPILER_MOC_SOURCE_MAKE_ALL_FILES)
 
 # UI headers
 qfiledialog.o: ui_qfiledialog.h

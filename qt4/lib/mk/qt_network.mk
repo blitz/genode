@@ -119,7 +119,7 @@ COMPILER_MOC_HEADER_MAKE_ALL_FILES = \
 									moc_qlocalserver.cpp \
 									moc_qlocalsocket.cpp
 
-$(subst moc_,,$(COMPILER_MOC_HEADER_MAKE_ALL_FILES:.cpp=.o)) : $(COMPILER_MOC_HEADER_MAKE_ALL_FILES)
+$(SRC_CC:.cpp=.o): $(COMPILER_MOC_HEADER_MAKE_ALL_FILES)
 
 INC_DIR += $(REP_DIR)/src/lib/qt4/mkspecs/qws/genode-x86-g++ \
            $(REP_DIR)/include/qt4 \
