@@ -1,4 +1,4 @@
-SLASHEM_REV = de8f99f
+SLASHEM_REV = fbd743a
 SLASHEM     = slashem-$(SLASHEM_REV)
 SLASHEM_DIR = blitz-slashem-$(SLASHEM_REV)
 SLASHEM_TGZ = slashem-$(SLASHEM_REV).tgz
