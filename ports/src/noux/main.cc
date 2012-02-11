@@ -50,6 +50,7 @@
 #include <dummy_input_io_channel.h>
 #include <root_file_system.h>
 #include <tar_file_system.h>
+#include <userdb.h>
 
 
 namespace Noux {
@@ -445,6 +446,21 @@ int main(int argc, char **argv)
 				vfs.add_file_system(new Tar_file_system(fs));
 		}
 	} catch (Genode::Xml_node::Nonexistent_sub_node) { }
+
+	/* initialize user database */
+	static UserDb userdb;
+	try {
+		Genode::Xml_node users = Genode::config()->xml_node().sub_node("users").sub_node();
+		for (; ; users = users.next()) {
+			if (users.has_type("user"))
+				userdb.add(new User(users));
+		}
+	} catch (Genode::Xml_node::Nonexistent_sub_node) { }
+
+	if (not userdb.find(0)) {
+		PINF("automatically adding root user");
+		userdb.add(new User("root", "Charlie Root", 0, 0));
+	}
 
 	/* XXX union RAM service */
 
