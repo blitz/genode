@@ -282,7 +282,11 @@ bool Noux::Child::syscall(Noux::Session::Syscall sc)
 
 				return true;
 			}
-
+		case SYSCALL_GETUID:
+			PINF("getuid/geteuid called. Return dummy values");
+			_sysio->getuid_out.uid  = 1000;
+			_sysio->getuid_out.euid = 1000;
+                  return true;
 		case SYSCALL_INVALID: break;
 		}
 	}

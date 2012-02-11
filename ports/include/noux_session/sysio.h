@@ -21,7 +21,6 @@
 /* Genode includes */
 #include <util/misc_math.h>
 
-
 #define SYSIO_DECL(syscall_name, args, results) \
 	struct args syscall_name##_in; \
 	struct results syscall_name##_out;
@@ -247,6 +246,8 @@ namespace Noux {
 
 			SYSIO_DECL(select, { Select_fds fds; Select_timeout timeout; },
 			                   { Select_fds fds; });
+
+			SYSIO_DECL(getuid, { }, { unsigned uid; unsigned euid; });
 		};
 	};
 };

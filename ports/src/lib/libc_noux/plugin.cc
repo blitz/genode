@@ -74,6 +74,25 @@ extern "C" int __getcwd(char *dst, Genode::size_t dst_size)
 	return 0;
 }
 
+extern "C" uid_t getuid(void)
+{
+	if (!noux()->syscall(Noux::Session::SYSCALL_GETUID)) {
+		PWRN("getuid syscall failed");
+		errno = ENOSYS;
+		return -1;
+	}
+	return sysio()->getuid_out.uid;
+}
+
+extern "C" uid_t geteuid(void)
+{
+	if (!noux()->syscall(Noux::Session::SYSCALL_GETUID)) {
+		PWRN("geteuid syscall failed");
+		errno = ENOSYS;
+		return -1;
+	}
+	return sysio()->getuid_out.euid;
+}
 
 /**
  * Utility to copy-out syscall results to buf struct

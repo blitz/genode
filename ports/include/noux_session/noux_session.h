@@ -46,6 +46,7 @@ namespace Noux {
 			SYSCALL_FCHDIR,
 			SYSCALL_EXECVE,
 			SYSCALL_SELECT,
+                        SYSCALL_GETUID,
 			SYSCALL_INVALID = -1
 		};
 
@@ -66,6 +67,7 @@ namespace Noux {
 			NOUX_DECL_SYSCALL_NAME(FCHDIR)
 			NOUX_DECL_SYSCALL_NAME(EXECVE)
 			NOUX_DECL_SYSCALL_NAME(SELECT)
+			NOUX_DECL_SYSCALL_NAME(GETUID)
 			case SYSCALL_INVALID: return 0;
 			}
 			return 0;
