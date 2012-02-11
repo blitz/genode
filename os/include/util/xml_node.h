@@ -38,7 +38,7 @@ namespace Genode {
 		typedef ::Genode::Token<Scanner_policy_xml_identifier> Token;
 
 		/**
-		 * Forward declaration needed for befriending Tag with Attribut
+		 * Forward declaration needed for befriending Tag with Attribute
 		 */
 		class Tag;
 
