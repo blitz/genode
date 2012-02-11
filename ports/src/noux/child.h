@@ -92,7 +92,8 @@ namespace Noux {
 	{
 		private:
 
-			int const _pid;
+			int      const _pid;
+			unsigned const _uid;
 
 			Genode::Signal_receiver *_sig_rec;
 
@@ -204,6 +205,7 @@ namespace Noux {
 
 			Child(char const                *name,
 			      int                        pid,
+			      unsigned                   uid,
 			      Genode::Signal_receiver   *sig_rec,
 			      Vfs                       *vfs,
 			      Args                const &args,
@@ -212,6 +214,7 @@ namespace Noux {
 			      Genode::Service_registry  *parent_services)
 			:
 				_pid(pid),
+				_uid(uid),
 				_sig_rec(sig_rec),
 				_exit_dispatcher(this),
 				_exit_context_cap(sig_rec->manage(&_exit_dispatcher)),

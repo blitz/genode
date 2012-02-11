@@ -164,6 +164,7 @@ bool Noux::Child::syscall(Noux::Session::Syscall sc)
 				char const *filename = _sysio->execve_in.filename;
 				Child *child = new Child(filename,
 				                         _pid,
+							 _uid,
 				                         _sig_rec,
 				                         _vfs,
 				                         Args(_sysio->execve_in.args,
@@ -283,9 +284,8 @@ bool Noux::Child::syscall(Noux::Session::Syscall sc)
 				return true;
 			}
 		case SYSCALL_GETUID:
-			PINF("getuid/geteuid called. Return dummy values");
-			_sysio->getuid_out.uid  = 1000;
-			_sysio->getuid_out.euid = 1000;
+			_sysio->getuid_out.uid  = _uid;
+			_sysio->getuid_out.euid = _uid; // Effective UID = UID for now.
                   return true;
 		case SYSCALL_INVALID: break;
 		}
@@ -398,6 +398,19 @@ static char const *env_string_of_init_process()
 	return env_buf;
 }
 
+static unsigned uid_of_init_process()
+{
+	unsigned uid = 0;
+
+	/* Default to uid=0, if not specified. */
+	Genode::Xml_node start_node = Genode::config()->xml_node().sub_node("start");
+	try {
+		start_node.attribute("uid").value(&uid);
+	}
+	catch (Genode::Xml_node::Nonexistent_attribute) { }
+
+	return uid;
+}
 
 void *operator new (Genode::size_t size) {
 	return Genode::env()->heap()->alloc(size); }
@@ -440,6 +453,7 @@ int main(int argc, char **argv)
 
 	init_child = new Child(name_of_init_process(),
 	                       alloc_pid(),
+			       uid_of_init_process(),
 	                       &sig_rec,
 	                       &vfs,
 	                       args_of_init_process(),
