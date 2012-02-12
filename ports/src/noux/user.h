@@ -17,9 +17,8 @@ namespace Noux {
 
 	class User : public Genode::List<User>::Element
 	{
-		// XXX We want C++ 2011
-		//constexpr char DEFAULT_SHELL[] = "/bin/sh";
-		//constexpr char DEFAULT_HOME[]  = "/";
+		constexpr static const char *DEFAULT_SHELL = "/bin/sh";
+		constexpr static const char *DEFAULT_HOME  = "/";
 
 		enum { MAX_USERNAME_LEN = 128 };
 
@@ -61,15 +60,16 @@ namespace Noux {
 		{
 			try_string(config, "name",  "john",    _name,  sizeof(_name));
 			try_string(config, "fullname",  "John Genode", _fullname,  sizeof(_fullname));
-			try_string(config, "home",  "/",       _home,  sizeof(_home));
-			try_string(config, "shell", "/bin/sh", _shell, sizeof(_shell));
+			try_string(config, "home",  DEFAULT_HOME,  _home,  sizeof(_home));
+			try_string(config, "shell", DEFAULT_SHELL, _shell, sizeof(_shell));
 			_uid = try_unsigned(config, "uid", 0);
 			_gid = try_unsigned(config, "gid", 0);
 		};
 
 		User(const char *name, const char *fullname,
 		     unsigned uid = 0, unsigned gid = 0,
-		     const char *home = "/", const char *shell = "/bin/sh")
+		     const char *home  = DEFAULT_HOME,
+		     const char *shell = DEFAULT_SHELL)
 		{
 			Genode::strncpy(_name, name, sizeof(_name));
 			Genode::strncpy(_fullname, fullname, sizeof(_fullname));
